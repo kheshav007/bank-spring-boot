@@ -38,6 +38,16 @@ public class User {
 			joinColumns = { @JoinColumn(name = "USER_USERNAME", referencedColumnName="USERNAME")}, 
 			inverseJoinColumns = {@JoinColumn(name = "ROLE_NAME", referencedColumnName="NAME") })
 	private Set<Role> roles;
+	
+	public User() {
+	}
+
+	public User(String username, String password, String firstName, String lastName) {
+		this.username = username;
+		this.password = password;
+		this.firstName = firstName;
+		this.lastName = lastName;
+	}
 
 	public String getUsername() {
 		return username;
@@ -72,7 +82,7 @@ public class User {
 	}
 
 	public Set<Role> getRoles() {
-		return roles;
+		return  roles;
 	}
 
 	public void setRoles(Set<Role> roles) {
