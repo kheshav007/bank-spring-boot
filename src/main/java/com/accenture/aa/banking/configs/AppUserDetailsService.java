@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.accenture.aa.banking.services.UsersService;
 
-@Service
+@Service("userDetailsService")
 public class AppUserDetailsService implements UserDetailsService {
 
 	private final UsersService usersService;

@@ -1,7 +1,5 @@
 package com.accenture.aa.banking.controllers;
 
-import javax.annotation.PostConstruct;
-
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +17,9 @@ import com.accenture.aa.banking.services.EmployeesService;
 @RequestMapping("/employees")
 public class EmployeesController {
 
+	private final static String ROLE_CREATE_EMPLOYEE = "ROLE_CREATE_EMPLOYEE";
 	private final EmployeesService employeesService;
+	
 
 	private final BCryptPasswordEncoder passwordEncoder;
 
@@ -29,20 +29,19 @@ public class EmployeesController {
 	}
 
 	@PostMapping(value = "")
-	@Secured("ROLE_CREATE_EMPLOYEE")
+	@Secured(ROLE_CREATE_EMPLOYEE)
 	public HttpEntity<?> createEmployee(@RequestBody EmployeeDTO dto) {
 		dto.setPassword(passwordEncoder.encode(dto.getPassword()));
 		employeesService.createUser(dto);
 		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
 	
-//	@PostConstruct
-//	public void initUser() {
-//		if(employeesService.getEmployee("cyrano") == null) {
-//			EmployeeDTO cyrano = new EmployeeDTO("cyrano", passwordEncoder.encode("cyrano"), "Cyrano", "DJIKE");
-//			cyrano.getRoles().add("ROLE_CREATE_EMPLOYEE");
-//			employeesService.createUser(cyrano);
-//		}
-//	}
-
+	@PostMapping(value = "")
+	@Secured(ROLE_CREATE_EMPLOYEE)
+	public HttpEntity<?> createEmployee2(@RequestBody EmployeeDTO dto) {
+		dto.setPassword(passwordEncoder.encode(dto.getPassword()));
+		employeesService.createUser(dto);
+		return new ResponseEntity<>(HttpStatus.CREATED);
+	}
+	
 }

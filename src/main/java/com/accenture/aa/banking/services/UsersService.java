@@ -35,10 +35,13 @@ public class UsersService {
 
 	public UserDetails getUserCredentials(String username) {
 		User user = userRepository.findOne(username);
-		return (user != null)? new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), user.getRoles())
-				: null;
+		return (user != null)? new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), user.getRoles()) : null;
 	}
 
+	/**
+	 * here we insert all the roles in the database,
+	 * and we create the primary user with all the roles given to him.
+	 */
 	@PostConstruct
 	public void initUserAndRoles() {
 		for (String role : ROLES_LIST) {
